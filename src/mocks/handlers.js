@@ -1,7 +1,7 @@
 import { graphql } from 'msw';
 
 export const handlers = [
-  graphql.query('items', (res, req, context) => {
+  graphql.query('GetItem', (req, res, ctx) => {
     return res(
       ctx.data({
         pokemon_v2_item: [

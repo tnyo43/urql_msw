@@ -1,4 +1,11 @@
-import { gql, useQuery } from 'urql';
+import {
+  Client,
+  Provider,
+  cacheExchange,
+  fetchExchange,
+  gql,
+  useQuery
+} from 'urql';
 
 const ItemsQuery = gql`
   query getItem {
@@ -31,4 +38,18 @@ const Items = () => {
   );
 };
 
-export default Items;
+const client = new Client({
+  url: 'https://beta.pokeapi.co/graphql/v1beta',
+  exchanges: [cacheExchange, fetchExchange]
+});
+
+export default function Page() {
+  return (
+    <div>
+      <h1>with URQL</h1>
+      <Provider value={client}>
+        <Items />
+      </Provider>
+    </div>
+  );
+}
