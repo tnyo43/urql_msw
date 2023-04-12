@@ -1,9 +1,18 @@
-import { gql, useQuery } from 'urql';
+import {
+  Client,
+  Provider,
+  cacheExchange,
+  fetchExchange,
+  gql,
+  useQuery
+} from 'urql';
 
 const ItemsQuery = gql`
   query getItem {
     pokemon_v2_item(limit: 10) {
+      id
       name
+      cost
     }
   }
 `;
@@ -21,7 +30,7 @@ const Items = () => {
   return (
     <ul>
       {data.pokemon_v2_item.map((item: any) => (
-        <li key={item.name}>
+        <li key={item.id}>
           {item.name}, {item.cost}
         </li>
       ))}
@@ -29,4 +38,18 @@ const Items = () => {
   );
 };
 
-export default Items;
+const client = new Client({
+  url: 'https://beta.pokeapi.co/graphql/v1beta',
+  exchanges: [cacheExchange, fetchExchange]
+});
+
+export default function Page() {
+  return (
+    <div>
+      <h1>with URQL</h1>
+      <Provider value={client}>
+        <Items />
+      </Provider>
+    </div>
+  );
+}
