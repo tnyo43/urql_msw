@@ -3,7 +3,9 @@ import { gql, useQuery } from 'urql';
 const ItemsQuery = gql`
   query getItem {
     pokemon_v2_item(limit: 10) {
+      id
       name
+      cost
     }
   }
 `;
@@ -21,7 +23,7 @@ const Items = () => {
   return (
     <ul>
       {data.pokemon_v2_item.map((item: any) => (
-        <li key={item.name}>
+        <li key={item.id}>
           {item.name}, {item.cost}
         </li>
       ))}
