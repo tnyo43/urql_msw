@@ -8,7 +8,7 @@ import {
 } from 'urql';
 
 const ItemsQuery = gql`
-  query getItem {
+  query GetItem {
     pokemon_v2_item(limit: 10) {
       id
       name
