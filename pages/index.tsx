@@ -40,7 +40,12 @@ const Items = () => {
 
 const client = new Client({
   url: 'https://beta.pokeapi.co/graphql/v1beta',
-  exchanges: [cacheExchange, fetchExchange]
+  exchanges: [cacheExchange, fetchExchange],
+  fetchOptions: {
+    headers: {
+      Accept: '*/*'
+    }
+  }
 });
 
 export default function Page() {
